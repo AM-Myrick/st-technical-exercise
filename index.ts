@@ -1,16 +1,9 @@
 import { VALID_COST_FLAGS, COST_FLAG_INDEX, START_DATE_INDEX, END_DATE_INDEX, SINGLE_PROJECT_ARG_NUM } from "./constants"
 import { IProject } from "./models"
+import { dateDiff, calculateSetReimbursementCost } from "./reimbursementCalculator"
 
 const reimbursementArguments = Bun.argv.slice(2)
 const setOfProjects: IProject[] = []
-
-/**
- * Take the difference between the dates and divide by milliseconds per day.
- * Round to nearest whole number to deal with DST.
- */
-export const dateDiff = (first: Date, second: Date): number  => {        
-    return Math.round((second.getTime() - first.getTime()) / (1000 * 60 * 60 * 24));
-}
 
 const checkCostFlagValidity = (costFlag: string): boolean => {
     if (!VALID_COST_FLAGS.includes(costFlag)) {
@@ -132,6 +125,6 @@ const parseProjects = (reimbursementArgs: string[]): boolean => {
 
 const projectsParsedSuccessfully = parseProjects(reimbursementArguments)
 if (projectsParsedSuccessfully) {
-    console.log("Project(s) parsed successfully!")
+    console.log(calculateSetReimbursementCost(setOfProjects))
 }
 else console.error("Please fix the above error(s) and try again.")
