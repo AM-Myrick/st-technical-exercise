@@ -37,6 +37,13 @@ export const calculateSetReimbursementCost = (projects: IProject[]): number => {
                 reimbursementCost += isInLowCostCity ? LOW_COST_TRAVEL_DAY : HIGH_COST_TRAVEL_DAY
             }
         }
+
+        // if the project's end date overlaps with the next project's start date, reimburse the day and track it
+        if (overlapsWithNextProject) {
+            const nextProject = projects[index + 1]
+            const bothCitiesLowCost = isInLowCostCity && nextProject.isInLowCostCity
+            reimbursementCost += bothCitiesLowCost ? LOW_COST_FULL_DAY : HIGH_COST_FULL_DAY
+        }
     })
     return reimbursementCost
 }
