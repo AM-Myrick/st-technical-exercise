@@ -1,6 +1,13 @@
 {
   "name": "st-technical-exercise",
   "module": "index.ts",
+  "scripts": {
+    "set1": "bun index.ts -l '9/1/15' '9/3/15'",
+    "set2": "bun index.ts -l '9/1/15' '9/1/15' -h '9/2/15' '9/6/15' -l '9/6/15' '9/8/15'",
+    "set3": "bun index.ts -l '9/1/15' '9/3/15' -h '9/5/15' '9/7/15' -h '9/8/15' '9/8/15'",
+    "set4": "bun index.ts -l '9/1/15' '9/1/15' -l '9/1/15' '9/1/15' -h '9/2/2015' '9/2/2015' -h '9/2/15' '9/3/15'",
+    "allSets": "bun set1; bun set2; bun set3; bun set4;"
+  },
   "type": "module",
   "devDependencies": {
     "bun-types": "latest"
